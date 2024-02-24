@@ -1,0 +1,84 @@
+# Learn more about configuring your checkout UI extension:
+# https://shopify.dev/api/checkout-extensions/checkout/configuration
+
+# The version of APIs your extension will receive. Learn more:
+# https://shopify.dev/docs/api/usage/versioning
+api_version = "2024-01"
+
+[[extensions]]
+type = "ui_extension"
+name = "Remove product"
+handle = "remove-product"
+
+# Controls where in Shopify your extension will be injected,
+# and the file that contains your extension’s source code. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/extension-targets-overview
+
+[[extensions.targeting]]
+module = "./src/Checkout.jsx"
+target = "purchase.checkout.block.render"
+
+[extensions.capabilities]
+# Gives your extension access to directly query Shopify’s storefront API.
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#api-access
+api_access = true
+
+# Gives your extension access to make external network calls, using the
+# JavaScript `fetch()` API. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#network-access
+# network_access = true
+
+# Loads metafields on checkout resources, including the cart,
+# products, customers, and more. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#metafields
+
+# [[extensions.metafields]]
+# namespace = "my_namespace"
+# key = "my_key"
+# [[extensions.metafields]]
+# namespace = "my_namespace"
+# key = "my_other_key"
+
+# Defines settings that will be collected from merchants installing
+# your extension. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#settings-definition
+
+[extensions.settings]
+[[extensions.settings.fields]]
+key = "threadhold_amount"
+type = "number_integer"
+name = "Minimum Threshold Amount"
+description = "Enter an amount, Ex., 100. If the cart total is less then 100, the product will be removed from checkout."
+
+[[extensions.settings.fields]]
+key = "gift_product_id"
+type = "number_integer"
+name = "Product ID"
+description = "Enter the ID of your product, Ex., 8280049942743. This product will be removed if the cart total is less than the Minimum Threshold Amount."
+
+[[extensions.settings.fields]]
+key = "banner_is"
+type = "boolean"
+name = "Show Banner Once Product Has Been Removed"
+description = "Specify whether the banner should be displayed once the product has been removed."
+
+[[extensions.settings.fields]]
+key = "banner_title"
+type = "single_line_text_field"
+name = "Banner Title"
+description = "The title displayed in the banner once the product has been removed."
+# Gift Removed!
+
+[[extensions.settings.fields]]
+key = "banner_description"
+type = "multi_line_text_field"
+name = "Banner Description"
+description = "The description shown in the banner once the product has been removed."
+# Oops! Your gift product has been removed due to an insufficient total amount.
+
+[[extensions.settings.fields]]
+key = "banner_status"
+type = "single_line_text_field"
+name = "Banner Status"
+description = "Specify the status for the banner. Enter one of the following: 'info', 'success', 'warning', or 'critical'."
+
